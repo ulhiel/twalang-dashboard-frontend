@@ -25,6 +25,7 @@ export default {
     .left-bar {
         height: 100%;
         width: 250px;
+        position: relative;
 
         background-color: #115ad1;
     }

@@ -24,6 +24,24 @@ Vue.use(VueRouter)
         component: require('../views/dashboard/items/product-view.vue').default
       }
     ]
+  },
+  {
+    path: '/dashbooard',
+    component: require('../views/dashbooard/dashboard.vue').default,
+    children: [
+      {
+        path: '',
+        component: require('../views/dashbooard/items/main.vue').default
+      },
+      {
+        path: 'marketing',
+        component: require('../views/dashbooard/items/marketing.vue').default
+      },
+      {
+        path: 'product',
+        component: require('../views/dashbooard/items/product.vue').default
+      }
+    ]
   }
 ]
 

@@ -1,6 +1,7 @@
 <template>
   <div class="top-navbar d-flex justify-content-center align-items-center">
-      <div class="container">
+      <div class="container-fluid d-flex">
+          <button class="btn text-white btn-sm mx-3" @click="handdleToggle">&#9776;</button>
           <div class="brand">
               Twalang Administrator
           </div>
@@ -10,7 +11,11 @@
 
 <script>
 export default {
-
+    methods: {
+        handdleToggle(){
+            this.$emit('toggleSidebar')
+        }
+    }
 }
 </script>
 
