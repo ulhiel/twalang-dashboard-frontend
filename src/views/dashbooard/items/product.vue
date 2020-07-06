@@ -55,11 +55,10 @@
                 </div>
             </div>
         </div>
-
         <div class="row d-flex my-3">
             <div class="col-md-6" style="padding-left:0">
                 <div class="subtitle d-flex align-items-center">
-                    <font-awesome-icon icon="percentage" style="margin-right:1rem;"></font-awesome-icon> <b style="font-size:1.5rem"> Persentase Penjualan Sukses Berdasarkan Kota</b>
+                    <font-awesome-icon icon="percentage" style="margin-right:1rem;"></font-awesome-icon> <b style="font-size:1.5rem"> Persentase Penjualan Sukses Berdasarkan Kategori</b>
                 </div>
                 <p><small><mark>Grafik lokasi penyumbang pembelian berhasil</mark></small></p>
                 <div class="tcard shadow-sm">
@@ -80,7 +79,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row d-block">
             <div class="subtitle d-flex align-items-center">
                 <font-awesome-icon icon="compass" style="margin-right:1rem;"></font-awesome-icon> <b style="font-size:1.5rem"> Performa Produk Berdasarkan Kota</b>
@@ -113,7 +111,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row d-block">
             <div class="subtitle d-flex align-items-center">
                 <font-awesome-icon icon="certificate" style="margin-right:1rem;"></font-awesome-icon> <b style="font-size:1.5rem"> Performa Produk Berdasarkan Kategori</b>
@@ -146,6 +143,29 @@
                 </div>
             </div>
         </div>
+        <div class="row d-block">
+            <div class="subtitle d-flex align-items-center">
+                <font-awesome-icon icon="map-marker" style="margin-right:1rem;"></font-awesome-icon> <b style="font-size:1.5rem"> Performa Penjualan Lokasi Spesifik</b>
+            </div>
+            <div><small><mark> Melihat performa penjualan di suatu kota</mark></small></div>
+            <div class="row my-3">
+                <div class="col-md-12">
+                    <div class="tcard shadow-sm">
+                        <div class="card-body overflow-auto py-4" style="max-height:600px">
+                            <form>
+                                <div class="form-group">
+                                    <label for="location">Kota</label>
+                                    <select name="location" class="form-control" v-model="selectedLocation">
+                                        <option v-for="loc in locations" :key="loc.id" :value="loc.id">{{ loc.name }}</option>
+                                    </select>
+                                </div>
+                            </form>
+                            <location-performance></location-performance>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -161,6 +181,8 @@ export default {
             },
             locationPerformanceTable: '',
             categoryPerformanceTable: '',
+            locations: '',
+            selectedLocation: ''
         }
     },
     methods: {
@@ -202,12 +224,22 @@ export default {
             .catch( err => {
                 console.error(err)
             })
+        },
+        retrieveLocation(){
+            axios.get('/api/locations/retrieve')
+            .then(response => {
+                this.locations = response.data
+            })
+            .catch(err => {
+                console.error(err)
+            })
         }
     },
     mounted(){
         this.retrieveSummary()
         this.retrieveLocationPerformanceTable()
         this.retrieveCategoryPerformanceTable()
+        this.retrieveLocation()
     }
 }
 </script>

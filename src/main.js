@@ -13,13 +13,15 @@ import './styles/app.scss'
  */
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret,faCogs,faPoll,faLightbulb,faBullseye,faDrawPolygon,faChartLine,
-          faStarOfLife,faCompass,faPercentage,faCertificate } from '@fortawesome/free-solid-svg-icons'
+          faStarOfLife,faCompass,faPercentage,faCertificate,faMapMarker } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faUserSecret,faCogs,faPoll,faLightbulb,faBullseye,faDrawPolygon,faChartLine,
-            faStarOfLife,faCompass,faPercentage,faCertificate)
+            faStarOfLife,faCompass,faPercentage,faCertificate,faMapMarker)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+/** END OF FONTAWESOME */
 
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000'
@@ -38,6 +40,7 @@ Vue.component('successful-purchase-bycategory', require('./components/chart/cate
 
 
 Vue.component('dashboard-sidebar', require('./components/incluudes/sidebar.vue').default)
+Vue.component('location-performance',require('./components/chart/location-performance.vue').default)
 
 Vue.config.productionTip = false
 
