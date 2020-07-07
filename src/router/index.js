@@ -1,38 +1,19 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 
 Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/dashboard',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: require('../views/dashboard/dashboard.vue').default,
-    children: [
-      {
-        path: '',
-        component: require('../views/dashboard/items/main-dashboard.vue').default
-      },
-      {
-        path: 'marketing',
-        component: require('../views/dashboard/items/marketing-view.vue').default
-      },
-      {
-        path: 'product',
-        component: require('../views/dashboard/items/product-view.vue').default
-      }
-    ]
+    path: '',
+    name: 'login',
+    component: require('../views/auth/login.vue').default
   },
   {
     path: '/dashbooard',
     component: require('../views/dashbooard/dashboard.vue').default,
     children: [
-      // {
-      //   path: '',
-      //   component: require('../views/dashbooard/items/main.vue').default
-      // },
       {
         path: '',
         component: require('../views/dashbooard/items/marketing.vue').default
@@ -49,6 +30,11 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to,from,next) => {
+  if (to.name !== 'login' && !store.state.admin) next({ name: 'login' })
+  else next()
 })
 
 export default router

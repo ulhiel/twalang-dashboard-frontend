@@ -4,12 +4,6 @@
           Twalang
       </div>
       <ul>
-          <!-- <router-link to="/dashbooard">
-            <li>
-                <font-awesome-icon icon="cogs"></font-awesome-icon>
-                Main Dashboard
-            </li>
-          </router-link> -->
           <router-link to="/dashbooard/">
             <li>
                 <font-awesome-icon icon="poll"></font-awesome-icon>
@@ -24,7 +18,7 @@
           </router-link>
       </ul>
       <div class="logout">
-          <button class="btn btn-dark btn-block" style="border-radius:2rem">
+          <button class="btn btn-dark btn-block" style="border-radius:2rem" @click="handleLogout">
               <font-awesome-icon icon="user-secret" />
               Logout
           </button>
@@ -33,8 +27,16 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
-
+    methods: {
+        ...mapActions([
+            'logout'
+        ]),
+        handleLogout(){
+            this.logout()
+        }
+    }
 }
 </script>
 
