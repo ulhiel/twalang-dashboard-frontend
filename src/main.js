@@ -6,6 +6,17 @@ import axios from 'axios'
 
 import './styles/app.scss'
 
+import VueCurrencyFilter from 'vue-currency-filter'
+Vue.use(VueCurrencyFilter,
+  {
+    symbol : 'Rp.',
+    thousandsSeparator: '.',
+    fractionCount: 0,
+    fractionSeparator: ',',
+    symbolPosition: 'front',
+    symbolSpacing: true
+  })
+
 /**
  * 
  * IMPORTING FONTAWESOME
@@ -13,11 +24,11 @@ import './styles/app.scss'
  */
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret,faCogs,faPoll,faLightbulb,faBullseye,faDrawPolygon,faChartLine,
-          faStarOfLife,faCompass,faPercentage,faCertificate,faMapMarker } from '@fortawesome/free-solid-svg-icons'
+          faStarOfLife,faCompass,faPercentage,faCertificate,faMapMarker,faBoxes,faDollarSign } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faUserSecret,faCogs,faPoll,faLightbulb,faBullseye,faDrawPolygon,faChartLine,
-            faStarOfLife,faCompass,faPercentage,faCertificate,faMapMarker)
+            faStarOfLife,faCompass,faPercentage,faCertificate,faMapMarker,faBoxes,faDollarSign)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
@@ -41,6 +52,7 @@ Vue.component('successful-purchase-bycategory', require('./components/chart/cate
 
 Vue.component('dashboard-sidebar', require('./components/incluudes/sidebar.vue').default)
 Vue.component('location-performance',require('./components/chart/location-performance.vue').default)
+Vue.component('category-performance', require('./components/chart/category-performance.vue').default)
 
 Vue.config.productionTip = false
 

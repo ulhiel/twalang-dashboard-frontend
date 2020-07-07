@@ -13,15 +13,15 @@
 import axios from 'axios'
 export default {
     props: {
-        location_id: {
+        category_id: {
             type: Number,
             default: 1
         }
     },
     watch:{
-        'location_id'(){
+        'category_id'(){
             this.loaded = false
-            this.retrieveLocationPerformance(this.location_id)
+            this.retrieveCategoryPerformance(this.category_id)
         }
     },
     data(){
@@ -31,8 +31,8 @@ export default {
         }
     },
     methods: {
-        retrieveLocationPerformance(){
-            axios.get('api/product/location/' + this.location_id)
+        retrieveCategoryPerformance(){
+            axios.get('api/product/category/' + this.category_id)
             .then( resp => {
                 this.chartdata = resp.data
                 this.loaded = true
@@ -43,7 +43,7 @@ export default {
         }
     },
     mounted(){
-        this.retrieveLocationPerformance(this.location_id)
+        this.retrieveCategoryPerformance(this.category_id)
     }
 }
 </script>

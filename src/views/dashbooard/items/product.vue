@@ -160,8 +160,81 @@
                                     </select>
                                 </div>
                             </form>
-                            <location-performance></location-performance>
+                            <location-performance :location_id="selectedLocation"></location-performance>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-block">
+            <div class="subtitle d-flex align-items-center">
+                <font-awesome-icon icon="boxes" style="margin-right:1rem;"></font-awesome-icon> <b style="font-size:1.5rem"> Performa Penjualan Kategori Spesifik</b>
+            </div>
+            <div><small><mark> Melihat performa penjualan kategori dari kota-kota</mark></small></div>
+            <div class="row my-3">
+                <div class="col-md-12">
+                    <div class="tcard shadow-sm">
+                        <div class="card-body overflow-auto py-4" style="max-height:600px">
+                            <form>
+                                <div class="form-group">
+                                    <label for="category">Kategori</label>
+                                    <select name="category" class="form-control" v-model="selectedCategory">
+                                        <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
+                                    </select>
+                                </div>
+                            </form>
+                            <category-performance :category_id="selectedCategory"></category-performance>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row block">
+            <div class="col-md-6" style="padding-left:0">
+                <div class="subtitle d-flex align-items-center">
+                    <font-awesome-icon icon="dollar-sign" style="margin-right:1rem;"></font-awesome-icon> <b style="font-size:1.5rem"> Urutan kota dengan nilai penjualan terbanyak</b>
+                </div>
+                <p><small><mark>Total nilai pembelian pada setiap kota</mark></small></p>
+                <div class="tcard shadow-sm overflow-auto" style="max-height:400px">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <th>No</th>
+                                <th>Kota</th>
+                                <th>Nilai Penjualan</th>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(loc,index) in locationExpenses" :key="loc.id">
+                                    <td>{{ index+1 }}</td>
+                                    <td>{{ loc.name }}</td>
+                                    <td>{{ loc.expenses | currency}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="padding-left:0">
+                <div class="subtitle d-flex align-items-center">
+                    <font-awesome-icon icon="dollar-sign" style="margin-right:1rem;"></font-awesome-icon> <b style="font-size:1.5rem"> Urutan Kategori dengan nilai penjualan terbanyak</b>
+                </div>
+                <p><small><mark>Total nilai pembelian pada setiap kategori</mark></small></p>
+                <div class="tcard shadow-sm overflow-auto" style="max-height:400px">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <th>No</th>
+                                <th>Kota</th>
+                                <th>Nilai Penjualan</th>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(loc,index) in categoryExpenses" :key="loc.id">
+                                    <td>{{ index+1 }}</td>
+                                    <td>{{ loc.name }}</td>
+                                    <td>{{ loc.expenses | currency}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -182,7 +255,11 @@ export default {
             locationPerformanceTable: '',
             categoryPerformanceTable: '',
             locations: '',
-            selectedLocation: ''
+            selectedLocation: 1,
+            categories: '',
+            selectedCategory: 1,
+            locationExpenses: '',
+            categoryExpenses: ''
         }
     },
     methods: {
@@ -233,6 +310,35 @@ export default {
             .catch(err => {
                 console.error(err)
             })
+        },
+        retrieveCategories(){
+            axios.get('/api/category/retrieve')
+            .then(response => {
+                this.categories = response.data
+            })
+            .catch(err => {
+                console.error(err)
+            })
+        },
+        retrieveLocationExpenses(){
+            axios.get('/api/product/locations/expenses')
+            .then(response => {
+                response.data.sort(this.sortBy("expenses"))
+                this.locationExpenses = response.data
+            })
+            .catch(err => {
+                console.error(err)
+            })
+        },
+        retrieveCategoryExpenses(){
+            axios.get('/api/product/categories/expenses')
+            .then(response => {
+                response.data.sort(this.sortBy("expenses"))
+                this.categoryExpenses = response.data
+            })
+            .catch(err => {
+                console.error(err)
+            })
         }
     },
     mounted(){
@@ -240,6 +346,9 @@ export default {
         this.retrieveLocationPerformanceTable()
         this.retrieveCategoryPerformanceTable()
         this.retrieveLocation()
+        this.retrieveCategories()
+        this.retrieveLocationExpenses()
+        this.retrieveCategoryExpenses()
     }
 }
 </script>

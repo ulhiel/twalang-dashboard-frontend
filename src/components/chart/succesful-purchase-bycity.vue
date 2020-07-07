@@ -19,7 +19,6 @@ export default {
         axios.get('api/product/successfulPurchaseDoughnut')
         .then( resp => {
             this.chartdata = resp.data
-            console.log(resp.data)
             this.loaded = true
         })
         .catch(err => {
