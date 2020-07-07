@@ -29,12 +29,12 @@ Vue.use(VueRouter)
     path: '/dashbooard',
     component: require('../views/dashbooard/dashboard.vue').default,
     children: [
+      // {
+      //   path: '',
+      //   component: require('../views/dashbooard/items/main.vue').default
+      // },
       {
         path: '',
-        component: require('../views/dashbooard/items/main.vue').default
-      },
-      {
-        path: 'marketing',
         component: require('../views/dashbooard/items/marketing.vue').default
       },
       {

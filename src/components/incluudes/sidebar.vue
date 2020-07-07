@@ -4,13 +4,13 @@
           Twalang
       </div>
       <ul>
-          <router-link to="/dashbooard">
+          <!-- <router-link to="/dashbooard">
             <li>
                 <font-awesome-icon icon="cogs"></font-awesome-icon>
                 Main Dashboard
             </li>
-          </router-link>
-          <router-link to="/dashbooard/marketing">
+          </router-link> -->
+          <router-link to="/dashbooard/">
             <li>
                 <font-awesome-icon icon="poll"></font-awesome-icon>
                 Marketing Desk
